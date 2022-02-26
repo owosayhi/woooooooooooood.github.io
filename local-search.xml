@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>0. 开始</title>
+    <link href="/2022/02/26/beginning/"/>
+    <url>/2022/02/26/beginning/</url>
+    
+    <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>数据结构系列博客 旨在帮助北航2022信息类数据结构课的同学们，提供（与CSDN相比）质量较好的代码。博客内容包含数据结构中涉及的算法、数据结构模板，以及部分知识的讲解，并提供<del>充分的</del>注释以供同学们参考学习。  </p><p>代码主要来自个人作业以及个人笔记，且本人水平有限，代码风格欠佳，故不保证正确性，如发现有问题，或有更好的补充，欢迎在评论区指正，本人必及时修改。</p><p>本博客与课程进度（大概）同步更新。</p><h1 id="特别警告"><a href="#特别警告" class="headerlink" title="特别警告"></a>特别警告</h1><p>数据结构课程组十分重视抄袭问题！系统会对提交的代码进行查重！故万万不可复制博客中的代码，也尽量不要对着博客写代码，防止被 认定/误认定 为抄袭。博客中的代码仅供参考，作业中的代码烦请自行书写。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>data structure</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2022/02/25/hello-world/"/>
     <url>/2022/02/25/hello-world/</url>
