@@ -16,21 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="介绍数据结构系列博客 旨在帮助北航2022信息类数据结构课的同学们，提供（与CSDN相比）质量较好的代码。博客内容包含数据结构中涉及的算法、数据结构模板，以及部分知识的讲解，并提供充分的注释以供同学们参考学习。   代码主要来自个人作业以及个人笔记，且本人水平有限，代码风格欠佳，故不保证正确性，如发现有问题，或有更好的补充，欢迎在评论区指正，本人必及时修改。 本博客与课程进度（大概）同步更新。 温">
+    <meta name="description" content="题目总体很程设，这里主要给出两道题的参考代码 高精度减法就是模拟竖式减法 12345678910111213141516171819202122232425262728293031323334353637383940414243444546    void jian()&amp;#123;    int l1 &#x3D; strlen(s);    &#x2F;&#x2F;字符串长度     int l2 &#x3D; strlen(ss);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="0. 开始">
-<meta property="og:url" content="http://example.com/2022/02/26/beginning/index.html">
+<meta property="og:title" content="1. 第一次上机">
+<meta property="og:url" content="http://example.com/2022/03/03/ds-1/index.html">
 <meta property="og:site_name" content="木马blog">
-<meta property="og:description" content="介绍数据结构系列博客 旨在帮助北航2022信息类数据结构课的同学们，提供（与CSDN相比）质量较好的代码。博客内容包含数据结构中涉及的算法、数据结构模板，以及部分知识的讲解，并提供充分的注释以供同学们参考学习。   代码主要来自个人作业以及个人笔记，且本人水平有限，代码风格欠佳，故不保证正确性，如发现有问题，或有更好的补充，欢迎在评论区指正，本人必及时修改。 本博客与课程进度（大概）同步更新。 温">
+<meta property="og:description" content="题目总体很程设，这里主要给出两道题的参考代码 高精度减法就是模拟竖式减法 12345678910111213141516171819202122232425262728293031323334353637383940414243444546    void jian()&amp;#123;    int l1 &#x3D; strlen(s);    &#x2F;&#x2F;字符串长度     int l2 &#x3D; strlen(ss);">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-02-26T05:11:15.000Z">
-<meta property="article:modified_time" content="2022-03-03T12:10:11.715Z">
+<meta property="article:published_time" content="2022-03-03T12:14:37.000Z">
+<meta property="article:modified_time" content="2022-03-03T12:31:09.473Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>0. 开始 - 木马blog</title>
+  <title>1. 第一次上机 - 木马blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -188,7 +188,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="0. 开始">
+            <span class="h2" id="subtitle" title="1. 第一次上机">
               
             </span>
 
@@ -198,8 +198,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-26 13:11" pubdate>
-        2022年2月26日 下午
+      <time datetime="2022-03-03 20:14" pubdate>
+        2022年3月3日 晚上
       </time>
     </span>
   
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      521 字
+      1.4k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      12 分钟
     </span>
   
 
@@ -247,20 +247,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">0. 开始</h1>
+            <h1 style="display: none">1. 第一次上机</h1>
             
             <div class="markdown-body">
-              <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>数据结构系列博客 旨在帮助北航2022信息类数据结构课的同学们，提供（与CSDN相比）质量较好的代码。博客内容包含数据结构中涉及的算法、数据结构模板，以及部分知识的讲解，并提供<del>充分的</del>注释以供同学们参考学习。  </p>
-<p>代码主要来自个人作业以及个人笔记，且本人水平有限，代码风格欠佳，故不保证正确性，如发现有问题，或有更好的补充，欢迎在评论区指正，本人必及时修改。</p>
-<p>本博客与课程进度（大概）同步更新。</p>
-<h1 id="温馨提示"><a href="#温馨提示" class="headerlink" title="温馨提示"></a>温馨提示</h1><ol>
-<li>数据结构课的作业、考试均在自己的电脑上完成，所以非常建议大家转用vs code，界面好看功能多，调试更友好。</li>
-<li> vs code 下，ctrl＋alt＋F（dev C++ 下，ctrl＋shift<br>＋A）可以格式化代码，让代码更好读，也有助于助教解答。</li>
-<li>judge平台可以进行在线答疑，会有助教轮班解答。</li>
-<li>推荐书籍：《啊哈算法》、《大话数据结构》，两本书基本覆盖数据结构课程内容。</li>
-<li>数据结构的题目都很经典，一般在网上就可以找到完全匹配的算法。所以实在不会可以试着百度一下题干。</li>
-</ol>
-<h1 id="特别警告"><a href="#特别警告" class="headerlink" title="特别警告"></a>特别警告</h1><p>数据结构课程组<strong>十分重视抄袭问题！系统会对提交的代码进行查重！</strong>故<strong>万万不可复制博客中的代码</strong>，也尽量不要对着博客写代码，防止被 认定/误认定 为抄袭。博客中的代码仅供参考，作业中的代码烦请自行书写。</p>
+              <p>题目总体很程设，这里主要给出两道题的参考代码</p>
+<h1 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h1><p>就是模拟竖式减法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><pre><code class="hljs C">    <span class="hljs-type">void</span> <span class="hljs-title function_">jian</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> l1 = <span class="hljs-built_in">strlen</span>(s);    <span class="hljs-comment">//字符串长度 </span><br>    <span class="hljs-type">int</span> l2 = <span class="hljs-built_in">strlen</span>(ss);<br>    <span class="hljs-type">int</span> flag = <span class="hljs-number">0</span>;         <span class="hljs-comment">//一个记录正负的变量（后面就知道啦） </span><br><br>    <span class="hljs-built_in">memset</span>(a,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(a));       <br>    <span class="hljs-built_in">memset</span>(b,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(b));  <br><br>    <span class="hljs-keyword">if</span> ( l1 &lt; l2 || (<span class="hljs-built_in">strcmp</span>(s,ss) &lt; <span class="hljs-number">0</span> &amp;&amp; l1 == l2) )    <span class="hljs-comment">//这个比较重要是来判断前后两数的大小的  </span><br>    &#123;                                           <span class="hljs-comment">//不然一个小的数减一个大的数是大于零的就尴尬了</span><br>        flag = <span class="hljs-number">1</span>; <span class="hljs-comment">//这里是把正负记录下来  </span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = l2 - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; i--)    <span class="hljs-comment">//倒过来输入 </span><br>            a[l2 - i - <span class="hljs-number">1</span>] = ss[i] - <span class="hljs-string">&#x27;0&#x27;</span>;      <span class="hljs-comment">//将字符串里的字符转换为数字 </span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = l1 - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; i--)<br>            b[l1 - i - <span class="hljs-number">1</span>] = s[i] - <span class="hljs-string">&#x27;0&#x27;</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = l1 - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; i--)   <span class="hljs-comment">//同理，倒过来输入 </span><br>            a[l1 - i - <span class="hljs-number">1</span>] = s[i] - <span class="hljs-string">&#x27;0&#x27;</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = l2 - <span class="hljs-number">1</span> ; i &gt;= <span class="hljs-number">0</span> ; i--)<br>            b[l2 - i - <span class="hljs-number">1</span>] = ss[i] - <span class="hljs-string">&#x27;0&#x27;</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (l1 &gt; l2) <br>        len = l1;             <span class="hljs-comment">//len赋值为其中大的数 </span><br>    <span class="hljs-keyword">else</span> <br>        len = l2; <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span> ; i &lt; len ; i++)<br>    &#123;<br>        a[i] = a[i] - b[i];     <span class="hljs-comment">//运算 </span><br>        <span class="hljs-keyword">if</span> (a[i] &lt; <span class="hljs-number">0</span>)          <span class="hljs-comment">//如果减得多了 </span><br>        &#123;<br>            a[i+<span class="hljs-number">1</span>]-=<span class="hljs-number">1</span>;         <span class="hljs-comment">//向前要一位 </span><br>            a[i]+=<span class="hljs-number">10</span>;          <br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">while</span> (a[len - <span class="hljs-number">1</span>] == <span class="hljs-number">0</span> &amp;&amp; len&gt;<span class="hljs-number">1</span>) len--;   <span class="hljs-comment">//while去零法，了解一下（名字现编的，别搜百度了） 这个&amp;&amp;len&gt;1 很重要，防止结果为0 不输出。</span><br>    <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">1</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;-&quot;</span>);     <span class="hljs-comment">//如果结果是负的，先输出一个负号 </span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = len - <span class="hljs-number">1</span> ;i &gt;= <span class="hljs-number">0</span> ;i--)   <span class="hljs-comment">//再输出结果 </span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,a[i]);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);   <span class="hljs-comment">//换行 </span><br>&#125;                           <span class="hljs-comment">//高精度减法你懂了吗？ </span><br><br>（这个好像是以前从网上复制到笔记上的……）<br></code></pre></td></tr></table></figure>
+<h1 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h1><p>把求全排列想象成：手上有 1~n n张数字卡片，依次放入编号为1~n的盒子里面。用book[]数组记录某个卡片是否被使用。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c">fullArray()<br>&#123;<br><br>    <span class="hljs-comment">//收尾情况的代码：</span><br><br>    <span class="hljs-comment">//盒子放满之后，逐一打印数字卡片</span><br><br>    <span class="hljs-comment">//递归部分的代码：</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-comment">//每一步都从最小的开始尝试放数字</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (book[i] == <span class="hljs-number">0</span>) <span class="hljs-comment">//如果还没有被用</span><br>        &#123;<br>            a[step] = i;      <span class="hljs-comment">//用一个数组装卡片，放下数字卡片</span><br>            book[i] = <span class="hljs-number">1</span>;      <span class="hljs-comment">//表明放下的数字卡片被占用</span><br>            fds(step + <span class="hljs-number">1</span>, n); <span class="hljs-comment">//开始下一步</span><br>            book[i] = <span class="hljs-number">0</span>;      <span class="hljs-comment">//取回数字卡片</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>题目容易成这样，就关掉网页自己写一遍吧。</p>
 
             </div>
             <hr>
@@ -295,15 +292,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/03/ds-1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1. 第一次上机</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/02/26/beginning/">
+                        <span class="hidden-mobile">0. 开始</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
