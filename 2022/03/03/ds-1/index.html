@@ -24,7 +24,7 @@
 <meta property="og:description" content="题目总体很程设，这里主要给出三道题的参考代码 简单计算器可以用层次化的思维去理解表达式： 表达式 &#x3D; 项 +&#x2F;- 项 +&#x2F;- 项  项 &#x3D; 因子 *&#x2F; 因子 *&#x2F; 因子  这样一来就可以考虑写个递归完成它。   当然还有一种更优雅的处理加减的方式： 表达式 &#x3D; 项 + 项 + 项  项 &#x3D; +&#x2F;- (因子 *&#x2F; 因子 *&#x2F; 因子)  这样一来，在项结算的时候乘以1或-1，于是表达式只需要无脑加就可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-03T12:14:37.000Z">
-<meta property="article:modified_time" content="2022-03-05T07:44:36.777Z">
+<meta property="article:modified_time" content="2022-03-05T07:49:07.320Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20 分钟
+      21 分钟
     </span>
   
 
@@ -269,7 +269,8 @@
 
 <p>再优雅一点，可以把重复使用功能写成一个函数，比如下文的getNum()。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title function_">cal</span><span class="hljs-params">(<span class="hljs-type">int</span> sign)</span> <span class="hljs-comment">//用sign来标记这一项是正是负，也就是它的前面是加是减</span><br>&#123;<br>	<span class="hljs-type">long</span> <span class="hljs-type">long</span> num = <span class="hljs-number">0</span>;<br>	<span class="hljs-type">long</span> <span class="hljs-type">long</span> tmp;<br>	<span class="hljs-type">int</span> flag; <span class="hljs-comment">//用来标记计算方式， 1 为 * , 2 为 /</span><br><br>	<span class="hljs-comment">//项的开头必然是数字，所以先赋值一个数字</span><br>	num = getNum();<br><br>	<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-comment">//收尾部分：这一项结束了</span><br><br>        <span class="hljs-comment">//收尾代码</span><br><br>		<span class="hljs-comment">//循环部分：各种乘除</span><br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isdigit</span>(s[step]))<br>		&#123;<br>			tmp = getNum();<br>			<span class="hljs-keyword">if</span> (flag == <span class="hljs-number">1</span>)<br>				num *= tmp;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">2</span>)<br>				num /= tmp;<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[step] == <span class="hljs-string">&#x27;*&#x27;</span>)<br>		&#123;<br>			flag = <span class="hljs-number">1</span>;<br>            step++;<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[step] == <span class="hljs-string">&#x27;/&#x27;</span>)<br>		&#123;<br>			flag = <span class="hljs-number">2</span>;<br>            step++;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>本题有一点难想的部分可能就是：如何在获得因子之后，知道它与前面的结果是乘是除。代码中已经给了一个还不错的方法。</p>
+<p>本题有一点难想的部分可能就是：如何在获得因子之后，知道它与前面数字的计算是乘是除。代码中已经给了一个还不错的方法。</p>
+<p>每进一步，都及时地进行计算，这样拿在手上的数字就不会太多，也会比较好想。</p>
 <p>要是还想再优雅一点，由于项对每个因子的计算都是乘法/除法，而1*任何数字还是其本身，所以可以不为项的第一个因子写getNum()，而直接进入“标准化作业”。想想看怎么写吧。</p>
 <p>掌握对表达式的层次化理解，非常有助于自己编程思维的形成。以后必然会出现涉及括号的表达式计算，有兴趣的同学也可以想想要怎么实现。</p>
 <h1 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h1><p>就是模拟竖式减法</p>
