@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本周上机的难点主要在结构体和排序上面。 结构体表示方法方法1一般来说，结构体是这么定义的。 1234567891011121314151617struct Node &#x2F;&#x2F; struct：表示你即将定义一个与int、char、long long 相平行的一个【数据类型】&#x2F;&#x2F; Node: 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。&amp;#123;">
+    <meta name="description" content="本周上机的难点主要在结构体和排序上面。 结构体表示方法方法1一般来说，结构体是这么定义的。 1234567891011121314151617struct Node &#x2F;&#x2F;struct：表示你即将定义一个与int、char、long long 相平行的一个【数据类型】&#x2F;&#x2F;Node: 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。&amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2. 第二次上机">
 <meta property="og:url" content="http://example.com/2022/03/10/ds-2/index.html">
 <meta property="og:site_name" content="木马blog">
-<meta property="og:description" content="本周上机的难点主要在结构体和排序上面。 结构体表示方法方法1一般来说，结构体是这么定义的。 1234567891011121314151617struct Node &#x2F;&#x2F; struct：表示你即将定义一个与int、char、long long 相平行的一个【数据类型】&#x2F;&#x2F; Node: 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。&amp;#123;">
+<meta property="og:description" content="本周上机的难点主要在结构体和排序上面。 结构体表示方法方法1一般来说，结构体是这么定义的。 1234567891011121314151617struct Node &#x2F;&#x2F;struct：表示你即将定义一个与int、char、long long 相平行的一个【数据类型】&#x2F;&#x2F;Node: 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。&amp;#123;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-10T14:02:08.000Z">
-<meta property="article:modified_time" content="2022-03-12T08:34:30.254Z">
+<meta property="article:modified_time" content="2022-03-13T12:45:09.193Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
@@ -252,7 +252,7 @@
             <div class="markdown-body">
               <p>本周上机的难点主要在结构体和排序上面。</p>
 <h1 id="结构体表示方法"><a href="#结构体表示方法" class="headerlink" title="结构体表示方法"></a>结构体表示方法</h1><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>一般来说，结构体是这么定义的。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> </span><br><span class="hljs-class">// <span class="hljs-keyword">struct</span>：表示你即将定义一个与<span class="hljs-title">int</span>、<span class="hljs-title">char</span>、<span class="hljs-title">long</span> <span class="hljs-title">long</span> 相平行的一个【数据类型】</span><br><span class="hljs-class">// <span class="hljs-title">Node</span>:</span> 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。<br>&#123;<br>    <span class="hljs-comment">//将以下的“成员” 打包在一起，作为这个数据类型</span><br>    <span class="hljs-comment">//这第四题的实例</span><br>    <span class="hljs-type">char</span> num[<span class="hljs-number">14</span>];<br>    <span class="hljs-type">char</span> name[<span class="hljs-number">24</span>];<br>    <span class="hljs-type">int</span> order;<span class="hljs-comment">//这个order的作用在下面的“让快排变稳定”会用到</span><br>&#125;;<br><br>Node n;<br><span class="hljs-comment">//声明结构体的方法：【数据类型】+【结构体的名字】，这个可以类比&quot; int num; &quot; 来理解</span><br>Node *p;<br><span class="hljs-comment">//声明一个结构体指针，这里可以类比&quot; int *a; &quot; 来理解</span><br><span class="hljs-comment">//指针经常习惯性地叫它p，是pointer的简称</span><br>Node *ptr[<span class="hljs-number">100</span>];<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> </span><br><span class="hljs-class">//<span class="hljs-keyword">struct</span>：表示你即将定义一个与<span class="hljs-title">int</span>、<span class="hljs-title">char</span>、<span class="hljs-title">long</span> <span class="hljs-title">long</span> 相平行的一个【数据类型】</span><br><span class="hljs-class">//<span class="hljs-title">Node</span>:</span> 表示你定义的这个【数据类型】，也就是结构体，叫做Node。首字母大写只是程序员的习惯，不是必须的。<br>&#123;<br>    <span class="hljs-comment">//将以下的“成员” 打包在一起，作为这个数据类型</span><br>    <span class="hljs-comment">//这第四题的实例</span><br>    <span class="hljs-type">char</span> num[<span class="hljs-number">14</span>];<br>    <span class="hljs-type">char</span> name[<span class="hljs-number">24</span>];<br>    <span class="hljs-type">int</span> order;<span class="hljs-comment">//这个order的作用在下面的“让快排变稳定”会用到</span><br>&#125;;<br><br>Node n;<br><span class="hljs-comment">//声明结构体的方法：【数据类型】+【结构体的名字】，这个可以类比&quot; int num; &quot; 来理解</span><br>Node *p;<br><span class="hljs-comment">//声明一个结构体指针，这里可以类比&quot; int *a; &quot; 来理解</span><br><span class="hljs-comment">//指针经常习惯性地叫它p，是pointer的简称</span><br>Node *ptr[<span class="hljs-number">100</span>];<br></code></pre></td></tr></table></figure>
 <p>也可以简写为</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span>&#123;</span><br>    <span class="hljs-type">char</span> num[<span class="hljs-number">14</span>];<br>    <span class="hljs-type">char</span> name[<span class="hljs-number">24</span>];<br>    <span class="hljs-type">int</span> order;<br>&#125; n, *p, *ptr[<span class="hljs-number">100</span>];<span class="hljs-comment">//注意，声明部分出现在分号前面</span><br></code></pre></td></tr></table></figure>
 
@@ -318,6 +318,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/03/13/doc2txt/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">word文档转txt小程序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
