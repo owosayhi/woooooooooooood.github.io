@@ -24,7 +24,7 @@
 <meta property="og:description" content="麻了，网上的word文档转txt的代码没有一个能跑的。要不然就是通用性极差，得专门按序号命名才行。 这里缝合了两个doc2txt的python代码，以期中文互联网上多一份能跑的代码。 跑之前要先安装win32com，在cmd下输入： 1python -m pip install pypiwin32 以下为完整代码。 12345678910111213141516171819202122232425">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T12:44:25.000Z">
-<meta property="article:modified_time" content="2022-03-14T15:52:27.624Z">
+<meta property="article:modified_time" content="2022-03-14T16:00:41.193Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="小程序">
 <meta name="twitter:card" content="summary_large_image">
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      958 字
+      985 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      9 分钟
     </span>
   
 
@@ -257,6 +257,7 @@
 <p>以下为完整代码。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> win32com.client<br><span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">change_word_to_txt</span>(<span class="hljs-params">word_path, save_path</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;读取&#x27;</span>+word_path)<br>    word = win32com.client.Dispatch(<span class="hljs-string">&#x27;Word.Application&#x27;</span>)  <span class="hljs-comment"># 调用word应用</span><br>    doc = word.Documents.Open(word_path)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;保存中。。。&#x27;</span>)<br>    doc.SaveAs(save_path, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 保存格式为txt</span><br>    doc.Close()<br>    word.Quit()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">next_doc</span>():<br>    <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> glob.glob(<span class="hljs-string">&#x27;C:\\Users\\111\\Desktop\\fengru\\trans\\*.doc&#x27;</span>):<span class="hljs-comment"># 要读取的.doc文件路径</span><br>        <span class="hljs-keyword">yield</span> d<br>    <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> glob.glob(<span class="hljs-string">&#x27;C:\\Users\\111\\Desktop\\fengru\\trans\\*.docx&#x27;</span>):<span class="hljs-comment"># 要读取的.docx文件路径</span><br>        <span class="hljs-keyword">yield</span> d<br><br><span class="hljs-keyword">for</span> doc <span class="hljs-keyword">in</span> next_doc():<br>    name, ext = os.path.splitext(doc)<br>    readPath = doc <br>    savePath =name+<span class="hljs-string">&quot;.txt&quot;</span>  <span class="hljs-comment"># 保存的绝对路径，这里默认转到相同路径</span><br>    change_word_to_txt(readPath, savePath)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;保存成功！&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <p>只需要新建一个.py文件，把代码复制进去，然后更改里面的那两行绝对路径为word文件所在文件夹，运行，就可以在word文件的同目录生成同名的.txt文件了。.doc / .docx 文件都可以实现转换。</p>
+<p>估计也就人工制作有标记数据的可怜人能用的上了吧(允悲)</p>
 
             </div>
             <hr>
