@@ -1,0 +1,591 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言本文将按照作业的顺序依次展示作业中的思路，以及个人认为比较有价值的代码。考虑到阅读体验，本文将圈复杂度分析放在了文末。 第一次作业结构概述类图如下 整个表达式的处理流程大致如下图  空白符的处理空白符在一开始直接删去即可。 1String s &#x3D; string.replaceAll(&quot;[ \\t]&quot;, &quot;&quot;); 这一方法将延续三次作业 简化方式化简化简这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO第一单元总结">
+<meta property="og:url" content="http://example.com/2022/03/26/OO-unit1/index.html">
+<meta property="og:site_name" content="木马blog">
+<meta property="og:description" content="前言本文将按照作业的顺序依次展示作业中的思路，以及个人认为比较有价值的代码。考虑到阅读体验，本文将圈复杂度分析放在了文末。 第一次作业结构概述类图如下 整个表达式的处理流程大致如下图  空白符的处理空白符在一开始直接删去即可。 1String s &#x3D; string.replaceAll(&quot;[ \\t]&quot;, &quot;&quot;); 这一方法将延续三次作业 简化方式化简化简这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133035239-1502470451.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133652693-478656214.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325141828163-1971151374.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133101155-117133541.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325135159332-2023732794.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325150902692-2022730891.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133113128-1744181138.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325135159332-2023732794.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325154222905-933010666.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135514037-2121458312.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135535589-1046267560.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135706474-670960018.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135718167-653735896.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135725010-480457731.png">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135732991-399532382.png">
+<meta property="article:published_time" content="2022-03-26T06:14:41.000Z">
+<meta property="article:modified_time" content="2022-03-26T06:15:58.536Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133035239-1502470451.png">
+  
+  
+  <title>OO第一单元总结 - 木马blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>木马blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                <i class="iconfont icon-code"></i>
+                数据结构
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="OO第一单元总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-26 14:14" pubdate>
+        2022年3月26日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OO第一单元总结</h1>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文将按照作业的顺序依次展示作业中的思路，以及个人认为比较有价值的代码。考虑到阅读体验，本文将圈复杂度分析放在了文末。</p>
+<h1 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h1><h2 id="结构概述"><a href="#结构概述" class="headerlink" title="结构概述"></a>结构概述</h2><p>类图如下<br><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133035239-1502470451.png" srcset="/img/loading.gif" lazyload></p>
+<p>整个表达式的处理流程大致如下图</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133652693-478656214.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="空白符的处理"><a href="#空白符的处理" class="headerlink" title="空白符的处理"></a>空白符的处理</h2><p>空白符在一开始直接删去即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> string.replaceAll(<span class="hljs-string">&quot;[ \\t]&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>这一方法将延续三次作业</p>
+<h2 id="简化方式"><a href="#简化方式" class="headerlink" title="简化方式"></a>简化方式</h2><h3 id="化简"><a href="#化简" class="headerlink" title="化简"></a>化简</h3><p>化简这一步的示意图如下：</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325141828163-1971151374.png" srcset="/img/loading.gif" lazyload></p>
+<p>在<code>expr.simplify()</code>这一步中，因子只能是x或常数，因此，在简化时，只需要递归地向上传一个<code>HashMap&lt;Biginteger, Biginteger&gt;</code>，在<code>term.simplify()</code>中，完成<code>HashMap&lt;Biginteger, Biginteger&gt;</code>之间相乘，在<code>expr.simplify()</code>中完成<code>HashMap&lt;Biginteger, Biginteger&gt;</code>的相加即可。其中，前面的Biginteger代表指数，后面的Biginteger代表系数。</p>
+<h2 id="符号处理"><a href="#符号处理" class="headerlink" title="符号处理"></a>符号处理</h2><p>观察表达式的形式化表述：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">表达式 → 空白项 [加减 空白项] 项 空白项 <span class="hljs-string">| 表达式 加减 空白项 项 空白项</span><br>项 → [加减 空白项] 因子 <span class="hljs-string">| 项 空白项 * 空白项 因子</span><br></code></pre></td></tr></table></figure>
+<p>可以发现，如果不考虑数量，所有的加减号理论上都可以认为是项（Term）前面的符号。因此，在符号处理上，在表达式处理流程的<code>parseExpr()</code>这一步中，符号将交由<code>Parser</code>中的<code>parseTerm()</code>方法开头处统一处理。</p>
+<p>而带符号的整数中，发现Biginteger(string)的方法，可以处理string前的正负号，因此直接用这一函数处理。</p>
+<p>这一处理方法将会延续整个第一单元。</p>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li>将<code>x**2</code>替换为<code>x*x</code>可以减少一个字符。处理方法为：在<code>printRes()</code>这一步中，对即将打印的<code>x**2</code>进行特判，并进行替换即可。</li>
+<li><code>-x+1</code>这样负号在前的表达式，可换为<code>1-x</code>从而减小长度。处理方法为：遍历<code>HashMap&lt;Biginteger, Biginteger&gt;</code>的所有元素，找到系数为正数的项提前打印并删除，再将这个HashMap进行一般流程的打印。</li>
+</ol>
+<h1 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h1><p>类图如下<br><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133101155-117133541.png" srcset="/img/loading.gif" lazyload></p>
+<p>表达式的整个处理流程大致如下图</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325135159332-2023732794.png" srcset="/img/loading.gif" lazyload></p>
+<p>本次作业中，将第一次作业的表达式层次：<code>Expr-Term-Factor</code>改为<code>Expr-Term-Pow-Factor</code>。</p>
+<h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><p>笔者对自定义函数的处理方式为<strong>字符串替换</strong>。字符串需要解决如下的问题：</p>
+<h3 id="字符串替换不当导致语义变化"><a href="#字符串替换不当导致语义变化" class="headerlink" title="字符串替换不当导致语义变化"></a>字符串替换不当导致语义变化</h3><p>笔者的解决方法是：能加括号的地方尽可能加括号。</p>
+<p>由于采用层次化的方法解析表达式，因此再深的括号，这个程序架构都能够充分展开，因此，能加括号的地方尽可能加括号并不会带来错误。</p>
+<h3 id="形参为x时，替换可能出bug"><a href="#形参为x时，替换可能出bug" class="headerlink" title="形参为x时，替换可能出bug"></a>形参为x时，替换可能出bug</h3><p>对于自定义函数，由于自定义函数中的参数x、y、z出现的顺序不固定，且形参复用了自变量<code>x</code>这一字母。于是，如果直接进行字符串的替换，会误将自变量<code>x</code>当作形参<code>x</code>进行替换而出错。</p>
+<p>对此，笔者的方法是：在<code>parseFunct()</code>这一步，将自定义函数的参数<strong>依次</strong>换为p、q、l这三个在整个流程中未使用的字母，这样就不用担心字符串替换时出错了。而后续替换，也将每一个形参替换为传入的参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> String[] letter = &#123; <span class="hljs-string">&quot;l&quot;</span>, <span class="hljs-string">&quot;q&quot;</span>, <span class="hljs-string">&quot;p&quot;</span> &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>而参数的匹配，采用的是正则表达式匹配。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">switch</span> (funct.getCnt()) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>                pattern = <span class="hljs-string">&quot;[fgh]\\((.*)\\)$&quot;</span>;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>                pattern = <span class="hljs-string">&quot;[fgh]\\((.*),(.*)\\)$&quot;</span>;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>                pattern = <span class="hljs-string">&quot;[fgh]\\((.*),(.*),(.*)\\)$&quot;</span>;<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">default</span>:<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-type">Pattern</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> Pattern.compile(pattern);<br>        <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> tmp.matcher(ori);<br>        <span class="hljs-keyword">if</span> (matcher.find()) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; funct.getCnt(); i++) &#123;<br>                functString = functString.replaceAll(letter[i], <span class="hljs-string">&quot;(&quot;</span> + matcher.group(<span class="hljs-number">1</span> + i) + <span class="hljs-string">&quot;)&quot;</span>);<br>                <span class="hljs-comment">// not sure</span><br>            &#125;<br>        &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="求和函数"><a href="#求和函数" class="headerlink" title="求和函数"></a>求和函数</h2><p>求和函数的处理同样是<strong>利用正则表达式匹配，并替换字符串</strong>。唯独需要注意的是，sin函数中也有“i”字符，进行替换的时候要当心不要将其换为常数。方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">termString</span> <span class="hljs-operator">=</span> exp.replaceAll(<span class="hljs-string">&quot;(?&lt;!s)i&quot;</span>, <span class="hljs-string">&quot;(&quot;</span> + i + <span class="hljs-string">&quot;)&quot;</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="计算顺序的问题"><a href="#计算顺序的问题" class="headerlink" title="计算顺序的问题"></a>计算顺序的问题</h3><p>由于设计展开括号的时候，</p>
+<h2 id="简化方式-1"><a href="#简化方式-1" class="headerlink" title="简化方式"></a>简化方式</h2><p>本次简化分为两步：展开括号（expand），进行合并（simplify）。</p>
+<h3 id="expand"><a href="#expand" class="headerlink" title="expand"></a>expand</h3><p>流程示意图如下：<br><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325150902692-2022730891.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于因子不再是只有数字和x了，因此向上传递<code>HashMap</code>不再行得通。因此，采用向上传递<code>ArrayList&lt;Term&gt;</code>的方式进行括号的展开。</p>
+<h3 id="simplify"><a href="#simplify" class="headerlink" title="simplify"></a>simplify</h3><p>对项，需要将<code>Pow</code>类底数<code>base</code>相同的因子合并，且指数相加。</p>
+<p>对表达式，需要识别除系数外相同的项<code>term</code>，并将其系数<code>coe</code>相加。</p>
+<p>此时，考虑采用重写<code>HashCode()</code>和<code>equals()</code>方法，并利用<code>HashSet&lt;&gt;</code>的元素不可重复性。</p>
+<p>大致的流程为：</p>
+<p>在项中：将<code>ArrayList&lt;Pow&gt;</code>的每个元素逐一放入<code>HashMap&lt;Factor, BigInteger&gt;</code>中，若<code>Factor</code>为数字，则乘入系数<code>coe</code>中；若出现相同的<code>Factor</code>，则指数改为两者指数之和。最后删去指数为0的对。</p>
+<p>在表达式中：将<code>ArrayList&lt;Term&gt;</code>的每个元素逐一放入<code>HashMap&lt;HashSet&lt;Pow&gt;,BigInteger&gt;</code>中，其中value为系数<code>coe</code>。若出现相同的<code>HashSet&lt;Pow&gt;</code>，则系数改为两者系数之和。最后删去系数为0的对。</p>
+<p>由于化简之前已经进行了括号的展开<code>expand</code>，故不会出现<code>x</code>和<code>(x)</code>无法被认为相等的情况。（因为此时根本不会出现<code>(x)</code>）。</p>
+<h2 id="性能优化-1"><a href="#性能优化-1" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="奇偶优化"><a href="#奇偶优化" class="headerlink" title="奇偶优化"></a>奇偶优化</h3><p>由于cos、sin函数具有奇偶性，因此，无脑将cos、sin中的符号提出，至少是不会增加结果的长度的。</p>
+<p>实现方法为：在<code>simplify()</code>这一步中，判断一下三角函数内因子的符号，如果为负，则改为正，并向外传递一个信号，<code>Term</code>类接到这个信号后，系数*-1即可。</p>
+<h3 id="三角函数原点的值"><a href="#三角函数原点的值" class="headerlink" title="三角函数原点的值"></a>三角函数原点的值</h3><p>将sin(0)换为0，cos(0)换为1可以缩短结果长度。方法为：在<code>simplify()</code>这一步时，对三角函数里面的内容进行判断。若为0，则将<code>Pow</code>的底数<code>base</code>替换为数字类<code>Number</code>，其值与原三角函数相同。</p>
+<h2 id="答案输出"><a href="#答案输出" class="headerlink" title="答案输出"></a>答案输出</h2><p>第二次作业中，答案字符串的复杂度要远远高于第一次作业，如果和第一次作业一样，在main函数写<code>printRes()</code>方法，那么这一方法的长度必然会超标。因此，本次作业改为采用在各个层次各自递归下降地<code>toString()</code>方法，并进行拼合。</p>
+<p>由于数据限制，sin、cos中的<code>Term</code>在输出答案时，<code>x**2</code>不能被替换为<code>x*x</code>，故为sin、cos中的<code>Term</code>定制了一个转为字符串的方法<code>display()</code>，以满足题目要求。</p>
+<h2 id="出现的bug"><a href="#出现的bug" class="headerlink" title="出现的bug"></a>出现的bug</h2><ol>
+<li>由于之前一直采用<code>Biginteger(string)</code>的方式处理常数，可省去特判数字前的符号这一步骤。因此疏忽了数字前面可能会出现”+”。故并没有在匹配求和函数上下限时考虑数字前的“+”，导致正则表达式匹配求和函数时匹配失败。解决方法为：修正正则表达式，使其可以匹配”+”。</li>
+<li>在奇偶优化时，未考虑三角函数的指数为偶数时，Term不应该*-1，导致出bug。解决方法为：将“如果为负，则改为正，并向外传递一个信号”改为“如果为负，则改为正，若三角函数指数为奇数，则向外传递一个信号”。</li>
+<li>未进行深拷贝，导致项与项相乘时出错。</li>
+</ol>
+<h1 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h1><p>类图如下<br><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325133113128-1744181138.png" srcset="/img/loading.gif" lazyload></p>
+<p>表达式的整个处理流程大致如下图</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325135159332-2023732794.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="三角函数的处理"><a href="#三角函数的处理" class="headerlink" title="三角函数的处理"></a>三角函数的处理</h2><p>由于三角函数中的因子限制放宽，因此在三角函数的化简过程有较大变化。三角函数sin、cos中的内容由常数或幂函数变为了一般的因子。笔者选择了<strong>直接按照表达式</strong>处理。</p>
+<p>为了能充分复用第二次作业的代码，本次作业虽然将三角函数内的因子按表达式处理，但在expand这一步提前对三角函数内的表达式进行了<code>expr.simplify()</code>，并进行判断：若<code>Expr</code>只有唯一的项，且项的结果相当于常数或幂函数（即不需要加括号），则将表达式中唯一的项复制到<code>Sin</code>、<code>Cos</code>类里面的<code>Term</code>类属性中，并在<code>toString</code>的步骤中，按第二次作业的方法处理。反之，保留这个<code>Expr</code>类变量，在<code>toString</code>的步骤中，按表达式处理。</p>
+<p>这里展示<code>toString()</code>方法的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> (term.getFinalPows().isEmpty()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;cos(&quot;</span> + term.display() + <span class="hljs-string">&quot;)&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (term.getPows().get(<span class="hljs-number">0</span>).getBase() <span class="hljs-keyword">instanceof</span> X<br>                &amp;&amp; term.getPows().get(<span class="hljs-number">0</span>).getExp().equals(BigInteger.valueOf(<span class="hljs-number">2</span>))) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;cos(&quot;</span> + <span class="hljs-string">&quot;x**2&quot;</span> + <span class="hljs-string">&quot;)&quot;</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;cos(&quot;</span> + term.display() + <span class="hljs-string">&quot;)&quot;</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;cos((&quot;</span> + expr.toString() + <span class="hljs-string">&quot;))&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="简化方式-2"><a href="#简化方式-2" class="headerlink" title="简化方式"></a>简化方式</h2><p>简化分为两步：展开括号（expand），进行合并（simplify）。</p>
+<h3 id="expand-1"><a href="#expand-1" class="headerlink" title="expand"></a>expand</h3><p>示意图如下：<br><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220325154222905-933010666.png" srcset="/img/loading.gif" lazyload></p>
+<p>大部分与第二次作业一致，除了三角函数类里增加了<code>Expr</code>类指令，并在<code>expand</code>的步骤中提前进行了<code>simplify</code>这一步。</p>
+<h3 id="simplify-1"><a href="#simplify-1" class="headerlink" title="simplify"></a>simplify</h3><p>同作业二。</p>
+<h2 id="性能优化-2"><a href="#性能优化-2" class="headerlink" title="性能优化"></a>性能优化</h2><p>本次作业未做额外的优化，优化方式同作业二。</p>
+<h2 id="求和函数的参数替换"><a href="#求和函数的参数替换" class="headerlink" title="求和函数的参数替换"></a>求和函数的参数替换</h2><p>由于此时数据限制放宽，之前使用正则表达式提取参数将无法应对如<code>f(sum(i,1,2,(x)**2),((((x)))))</code>这样刁钻的数据。此时，考虑通过括号堆栈的方式，找到每一个逗号间隔内的内容。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java">groupBegin[<span class="hljs-number">0</span>] = start + <span class="hljs-number">2</span>;<br>        <span class="hljs-type">Funct</span> <span class="hljs-variable">funct</span> <span class="hljs-operator">=</span> functs.get(type);<br>        <span class="hljs-keyword">while</span> (num != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> lexer.getchar(end);<br>            <span class="hljs-keyword">if</span> (now.equals(<span class="hljs-string">&quot;(&quot;</span>)) &#123;<br>                num++;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (now.equals(<span class="hljs-string">&quot;)&quot;</span>)) &#123;<br>                num--;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (now.equals(<span class="hljs-string">&quot;,&quot;</span>) &amp;&amp; num == <span class="hljs-number">1</span>) &#123;<br>                groupEnd[k] = end;<br>                k++;<br>                groupBegin[k] = end + <span class="hljs-number">1</span>;<br>            &#125;<br>            end++;<br>        &#125;<br>        groupEnd[k] = end - <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<h2 id="出现的bug-1"><a href="#出现的bug-1" class="headerlink" title="出现的bug"></a>出现的bug</h2><ol>
+<li>版本迭代的时候没有注意到求和函数<code>sum</code>的求和上限与下限并没有明确的大小限制，因此在写的时候用<code>int</code>型的变量去装上下限了。爆栈的数据在第二、三次作业的中、强测中均未出现，因此并没有修改这一bug，而在互测环节被hack了。</li>
+</ol>
+<h1 id="圈复杂度分析"><a href="#圈复杂度分析" class="headerlink" title="圈复杂度分析"></a>圈复杂度分析</h1><h2 id="第一次作业-1"><a href="#第一次作业-1" class="headerlink" title="第一次作业"></a>第一次作业</h2><p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135514037-2121458312.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135535589-1046267560.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="第二次作业-1"><a href="#第二次作业-1" class="headerlink" title="第二次作业"></a>第二次作业</h2><p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135706474-670960018.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135718167-653735896.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于Cal类中的方法，只在Term类中被使用。因此，如果将Cal中的方法直接写在Term里面，就可以少一个类，可以降低圈复杂度。</p>
+<h2 id="第三次作业-1"><a href="#第三次作业-1" class="headerlink" title="第三次作业"></a>第三次作业</h2><p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135725010-480457731.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202203/2785182-20220326135732991-399532382.png" srcset="/img/loading.gif" lazyload></p>
+<p>equals函数的圈复杂度这么高，好像也是没有办法。</p>
+<p>这个阶段的作业由于不敢将原来的方法改写，想要实现新的功能时，就会重写一个方法，增加一些不必要的属性。可能这就是屎山的诞生吧。</p>
+<h1 id="hack思路"><a href="#hack思路" class="headerlink" title="hack思路"></a>hack思路</h1><ol>
+<li>常数： 考虑前导零和正负号的处理是否正确</li>
+<li>幂函数：考虑零次方的结果是否恒为1，考虑项的合并是否正确。考虑偶次幂消去负号的这一步是否正确。</li>
+<li>求和函数：考虑求和上下限是否支持正负，是否支持上限小于上限。考虑正负号的代入是否正确。</li>
+<li>三角函数：考虑三角优化是否正确，考虑正负号的优化是否正确，考虑多层三角函数嵌套是否支持。</li>
+<li>自定义函数：考虑参数的替换是否正确，考虑形参的顺序是否会干扰代入。</li>
+</ol>
+<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>第一周的OO大主题为表达式的解析，整个作业的走向基本是可以预见到的。但是在实际书写的过程中，还是无法在一开始就想好以后的通用度问题，数据的覆盖面上，也比较依赖评测机。比如第二次作业相第三次作业迭代的时候，原以为第二次作业做的一些超前的工作，可以直接应付第三次作业，但是在开放中测后还是发现了很多问题，重写了不少代码。这一点可能还是个人能力不足。</p>
+<p>以及，个人也曾立志要好好写一个数据生成程序和自动评测程序，但最后还是没写，白嫖了讨论区……</p>
+<p>总体上还是有收获的吧，也有一些遗憾，希望以后能写得更好。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OO/">OO</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/24/ds-3/">
+                        <span class="hidden-mobile">3. 第三次上机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"RF0MS5cmAh0A3sAcwcJ7bb8J-gzGzoHsz","appKey":"O22d8klgjbAosUOSVu08pplw","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://rf0ms5cm.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
