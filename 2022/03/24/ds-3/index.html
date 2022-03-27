@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="连续线段对于每一个连续线段，其有用的信息只有：左右端点坐标、连续线段中的端点数。 因此可以考虑做一个结构体 1234struct line&amp;#123;    int lx,ly,rx,ry,length;&amp;#125;line[105]; 每输入一个新线段(x1,y1) (x2,y2)，都与现存的每个line的左右端点相比较，如果有重合的，则延长；如果没有，就开一条新的line存放这个线段。 猴子选">
+    <meta name="description" content="连续线段对于每一个连续线段，其有用的信息只有：左右端点坐标、连续线段中的端点数。 因此可以考虑做一个结构体 12345struct line&amp;#123;    int lx,ly,rx,ry,length;    int key; &#x2F;&#x2F;key的作用下面会说&amp;#125;line[105]; 每输入一个新线段(x1,y1) (x2,y2)，都与现存的每个line的左右端点相比较，如果有重合的，则延长；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3. 第三次上机">
 <meta property="og:url" content="http://example.com/2022/03/24/ds-3/index.html">
 <meta property="og:site_name" content="木马blog">
-<meta property="og:description" content="连续线段对于每一个连续线段，其有用的信息只有：左右端点坐标、连续线段中的端点数。 因此可以考虑做一个结构体 1234struct line&amp;#123;    int lx,ly,rx,ry,length;&amp;#125;line[105]; 每输入一个新线段(x1,y1) (x2,y2)，都与现存的每个line的左右端点相比较，如果有重合的，则延长；如果没有，就开一条新的line存放这个线段。 猴子选">
+<meta property="og:description" content="连续线段对于每一个连续线段，其有用的信息只有：左右端点坐标、连续线段中的端点数。 因此可以考虑做一个结构体 12345struct line&amp;#123;    int lx,ly,rx,ry,length;    int key; &#x2F;&#x2F;key的作用下面会说&amp;#125;line[105]; 每输入一个新线段(x1,y1) (x2,y2)，都与现存的每个line的左右端点相比较，如果有重合的，则延长；">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-24T10:12:52.000Z">
-<meta property="article:modified_time" content="2022-03-24T11:26:54.177Z">
+<meta property="article:modified_time" content="2022-03-27T10:15:52.826Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
@@ -209,7 +209,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      4.4k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      34 分钟
+      37 分钟
     </span>
   
 
@@ -252,8 +252,10 @@
             <div class="markdown-body">
               <h1 id="连续线段"><a href="#连续线段" class="headerlink" title="连续线段"></a>连续线段</h1><p>对于每一个连续线段，其有用的信息只有：左右端点坐标、连续线段中的端点数。</p>
 <p>因此可以考虑做一个结构体</p>
-<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">line</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-type">int</span> lx,ly,rx,ry,length;<br>&#125;line[<span class="hljs-number">105</span>];<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">line</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-type">int</span> lx,ly,rx,ry,length;<br>    <span class="hljs-type">int</span> key; <span class="hljs-comment">//key的作用下面会说</span><br>&#125;line[<span class="hljs-number">105</span>];<br></code></pre></td></tr></table></figure>
 <p>每输入一个新线段(x1,y1) (x2,y2)，都与现存的每个line的左右端点相比较，如果有重合的，则延长；如果没有，就开一条新的line存放这个线段。</p>
+<p>这道题还要考虑一个线段连起两个line的情况！我的方法是这样的：在line结构体当中加一个变量key，当key==0时这个line有效。如果发现新建的线段连起了两个line，就把左边的那个line的右端点改为右边line的右端点，然后右边的那个line置key=1，即右边的line无效。</p>
+<p>当然，采用“有效标志”去代表这个line是否被删除的方法也不怎么高效，也就是说，要表示“删去一个line”有更好的方法。比如，也可以简单地魔改右边的那个line，让它不可能再被延长，并让它的长度归零，从而达到删去右边那个line的效果。</p>
 <h1 id="猴子选大王"><a href="#猴子选大王" class="headerlink" title="猴子选大王"></a>猴子选大王</h1><p>是一个经典的约瑟夫环问题。这个网上讲解很多，我就不重复造轮子了。</p>
 <p>推荐教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qie_wei/article/details/87915174">https://blog.csdn.net/qie_wei/article/details/87915174</a></p>
 <p>贴一下码：</p>
