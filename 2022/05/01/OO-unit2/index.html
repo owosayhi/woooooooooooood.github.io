@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="同步块的设置本单元的基本架构由以下三个主要部分组成：  Inputhander：用来接收、分类输入，是线程。 Controller：用来处理输入、处理结束、是共享对象。 Elevator、Conveyer：电梯本身，用来接送乘客，是线程。  出于输出线程安全的考虑，再外加一个Outputer的单例对象，用于处理所有的输出。 因此，在共享对象（也就是Controller、Outputer）涉及数据读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO-unit2">
+<meta property="og:url" content="http://example.com/2022/05/01/OO-unit2/index.html">
+<meta property="og:site_name" content="木马blog">
+<meta property="og:description" content="同步块的设置本单元的基本架构由以下三个主要部分组成：  Inputhander：用来接收、分类输入，是线程。 Controller：用来处理输入、处理结束、是共享对象。 Elevator、Conveyer：电梯本身，用来接送乘客，是线程。  出于输出线程安全的考虑，再外加一个Outputer的单例对象，用于处理所有的输出。 因此，在共享对象（也就是Controller、Outputer）涉及数据读">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175158036-110525073.jpg">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175214119-1773963039.jpg">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175235489-161897498.jpg">
+<meta property="og:image" content="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175245413-1214593076.jpg">
+<meta property="article:published_time" content="2022-05-01T09:57:46.000Z">
+<meta property="article:modified_time" content="2022-05-01T09:58:02.864Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175158036-110525073.jpg">
+  
+  
+  <title>OO-unit2 - 木马blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>木马blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                <i class="iconfont icon-code"></i>
+                数据结构
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="OO-unit2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-01 17:57" pubdate>
+        2022年5月1日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OO-unit2</h1>
+            
+            <div class="markdown-body">
+              <h1 id="同步块的设置"><a href="#同步块的设置" class="headerlink" title="同步块的设置"></a>同步块的设置</h1><p>本单元的基本架构由以下三个主要部分组成：</p>
+<ol>
+<li>Inputhander：用来接收、分类输入，是线程。</li>
+<li>Controller：用来处理输入、处理结束、是共享对象。</li>
+<li>Elevator、Conveyer：电梯本身，用来接送乘客，是线程。</li>
+</ol>
+<p>出于输出线程安全的考虑，再外加一个Outputer的单例对象，用于处理所有的输出。</p>
+<p>因此，在共享对象（也就是Controller、Outputer）涉及数据读写的方法上，加上<code>synchronized</code>进行修饰，即可实现线程安全。</p>
+<h1 id="调度器设计"><a href="#调度器设计" class="headerlink" title="调度器设计"></a>调度器设计</h1><h2 id="look算法"><a href="#look算法" class="headerlink" title="look算法"></a>look算法</h2><p>采用look算法。基本逻辑如下：</p>
+<ol>
+<li>检查是否需要开门。如果需要，则开门接/放客。</li>
+<li>检查电梯上的所有人与该电梯所在的等待队列中的所有乘客，看电梯运行方向的<b> 前方</b>是否有接/放客的请求。若有，则保持原方向。若无，则调转方向。</li>
+<li>沿着第二步处理过后的方向，前进一层，并回到第一步。</li>
+</ol>
+<h2 id="look算法的小bug"><a href="#look算法的小bug" class="headerlink" title="look算法的小bug"></a>look算法的小bug</h2><p>但是到了第二次作业，引入了自由竞争后，就会出现bug，如：</p>
+<p>电梯1与电梯2都在A座的第一层。此时A座1层进入一个乘客，电梯1、2随机都开门抢课。不妨设电梯1抢到了该乘客。则此时对电梯2，在look算法的第二步中，检查发现上方并没有请求，则该电梯就会将方向改为朝下。于是在第三步就进入了第0层。</p>
+<p>解决方法就是：对“在最底层向下走”和“最高层向上走”的两种情况进行特判，阻止电梯走到0层与11层。</p>
+<h1 id="架构模式"><a href="#架构模式" class="headerlink" title="架构模式"></a>架构模式</h1><p>采用的基本架构或许可以叫做生产者－消费者模式吧。</p>
+<h2 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h2><p>类图如下：</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175158036-110525073.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>大致思路是：把<code>PersonRequest</code>类作为乘客本身，当输入一个<code>PersonRequest</code>时，<code>InputHandler</code>就会访问<code>Controller</code>的<code>HashMap&lt;Character, ArrayList&lt;PersonRequest&gt;&gt; map</code>，并将<code>PersonRequest</code>放到对应楼座的<code>ArrayList</code>当中。而电梯，则定期到<code>Controller</code>当中，查找自己对应楼座的<code>ArrayList</code>以判断是否开门接客、是否调转方向。当电梯需要接客时，则将<code>PersonRequest</code>从<code>Controller</code>的<code>ArrayList</code>中删除，并将其加入到<code>Elevator</code>中的<code>ArrayList&lt;PersonRequest&gt; passengers</code>当中。当需要开门放客时，遍历自己的<code>ArrayList&lt;PersonRequest&gt; passengers</code>，将请求的目的地楼层与当前楼层相同的请求删去，并进行相应的输出即可。</p>
+<p>此时考虑到后续必然会加电梯，所以将等待的乘客统一放在共享对象<code>Controller</code>中而非电梯中，电梯内部的乘客放在<code>Elevator</code>类中，就是出于对自由竞争机制的预备。<br>##　第二次作业<br>对纵向的电梯，采用了自由竞争的策略。<br>类图如下：</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175214119-1773963039.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>为了能够充分利用之前的代码，将横向电梯设置为一个新的类<code>Conveyer</code>，并复用<code>HashMap&lt;Character, ArrayList&lt;PersonRequest&gt;&gt; map</code>，将横向电梯的key设置为其所在楼层对应的字符，原理近乎相同。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>笔者试图在横向电梯中使用look算法，设置的机制如下：</p>
+<ol>
+<li>检查是否需要开门。如果需要，则开门接/放客。</li>
+<li>检查电梯上的所有人与该电梯所在的等待队列中的所有乘客，看电梯运行方向的<b> 前方的两个座</b>是否有接/放客的请求。若有，则保持原方向。若无，则调转方向。</li>
+<li>沿着第二步处理过后的方向，前进一层，并回到第一步。</li>
+</ol>
+<p>由此实现了横向电梯的伪look算法。</p>
+<h2 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h2><p>受到第四次课上实验_第二部分的启示，采用了流水线模式。</p>
+<p>对于需要处理成多段请求的人，设计为了一个<code>Person</code>类，然后对<code>Person</code>进行删除请求、获取请求的操作。</p>
+<p>类图如下：</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175235489-161897498.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h3><p>设想一种情况：有一位需要多次换乘的乘客，若他第一程下电梯后，下一程的电梯能提前来接他，那耗时一定能压缩到最小。</p>
+<p>基于这一想法，考虑实现让电梯提前来接乘客，方法就是：每输入一个乘客，就在需要换乘的上电梯处放置一个0号虚空请求（根据题设，乘客id必须&gt;0，所以id==0的请求视为虚空请求就再合适不过了），让电梯前往换乘点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PersonRequest</span> <span class="hljs-variable">p2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PersonRequest</span>(floor, floor, <br>    request.getFromBuilding(), request.getToBuilding(),<br>        request.getPersonId());<br><span class="hljs-type">PersonRequest</span> <span class="hljs-variable">p02</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PersonRequest</span>(floor, floor,<br>    request.getFromBuilding(), request.getToBuilding(),<br>        <span class="hljs-number">0</span>);<br>map.get((<span class="hljs-type">char</span>) (floor + <span class="hljs-string">&#x27;0&#x27;</span>)).add(p02);<br>person.addRequest(p2);<br><span class="hljs-keyword">if</span> (request.getToFloor() != floor) &#123;<br>    <span class="hljs-type">PersonRequest</span> <span class="hljs-variable">p3</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PersonRequest</span>(floor,<br>        request.getToFloor(), request.getToBuilding(),<br>            request.getToBuilding(), request.getPersonId());<br>    <span class="hljs-type">PersonRequest</span> <span class="hljs-variable">p03</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PersonRequest</span>(floor, <br>        request.getToFloor(), request.getToBuilding(),<br>            request.getToBuilding(), <span class="hljs-number">0</span>);<br>    person.addRequest(p3);<br>    map.get(request.getToBuilding()).add(p03);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于0号请求的存在，电梯会将其当成一般的请求处理，在一定情况下，会提前抵达0号请求所在的楼层/楼座。只需要在原先的<code>getRequest</code>电梯/传送带检查正在等待的<code>PersonRequest</code>的<code>ArrayList</code>中，加入如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (map.get(name).get(i).getPersonId() == <span class="hljs-number">0</span> <br>    &amp;&amp; floor == map.get(name).get(i).getFromFloor()) &#123;<br>    map.get(name).remove(i);<br>    i--;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>即可防止0号乘客虚空上电梯，并悄悄地让电梯提前到了中转的楼层/楼座等待需要换乘的乘客。</p>
+<p>但是，如果电梯正在运行当中，加入中转的0号请求，可能会导致电梯跑老了大老远结果是虚空接客，让这一优化成为负优化。于是，在乘客进入电梯的方法中，加入以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (p.getPersonId() == <span class="hljs-number">0</span>) &#123;<br>    waitQueue.remove(i);<br>    i--;<br>    <span class="hljs-keyword">continue</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这样写还有一个好处，就是可以防止：如果0号请求是在电梯<code>getRequest</code>之后、正式上客之前加入的，就有可能0号请求进入电梯的bug。</p>
+<h2 id="协作图"><a href="#协作图" class="headerlink" title="协作图"></a>协作图</h2><p>考虑到第三次作业完全覆盖了前两次作业的功能，不妨直接使用第三次作业的协作图表示该单元的总体的线程之间的协作关系。</p>
+<p>协作图如下：</p>
+<p><img src="https://img2022.cnblogs.com/blog/2785182/202205/2785182-20220501175245413-1214593076.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="结束机制"><a href="#结束机制" class="headerlink" title="结束机制"></a>结束机制</h3><p>在第一、二次作业当中，电梯结束的方法为：如果电梯在访问自己的等待乘客列表时，发现输入结束、电梯为空且等待列表也为空，则结束电梯进程。</p>
+<p>但是这一判断方式在第三次作业中会出问题，因为乘客请求在到达换乘的下一站之前，并不会及时出现在旅程中段电梯的等待列表中，电梯一旦空了，就会误以为自己以后已经没有任务而结束（事实上还有一个乘客在换乘中，在来搭电梯的路上）。于是线程结束的机制，索性改成：所有的<code>Person</code>都已完成即可。</p>
+<h1 id="程序bug"><a href="#程序bug" class="headerlink" title="程序bug"></a>程序bug</h1><p>该单元的bug比之前要多了，由于整个电梯的框架还是很清晰的，所以哪里出问题了一看报错就能发现，很多都是一目了然的小问题。但bug的出现还是远多于与其，主要原因还是因为自己没有写评测机，对自己的电梯也只做了逻辑运行正确性上的测试，而没有在复杂的运行状态下做充分的测试造成的。</p>
+<p>以下将对每次作业出的bug进行分析。<br>##　第一次作业<br>忘记在满员的情况下，电梯根本没必要再检查是否需要开门接客。例如电梯载满乘客从5楼走到1楼，期间每一层都有人在外面等电梯。我的电梯就会在到达的每一层都发现需要开门接客，于是就白白开门关门，徒增运行时间导致TLE。</p>
+<p>修改也很简单，在开门前加一层判断，如果没有人要下电梯，且电梯满员，则不开门即可。</p>
+<h2 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h2><p>在调度器设计那一栏提到了第二次作业，对自由竞争导致的“在最底层向下走”和“最高层向上走”进行了特判，但是忘记把打印“ARRIVE”也加入特判当中了，导致出现了从1层arrive到1层的情况。这一点肉眼没法发现，评测机却会抓出来……</p>
+<p>修改也很简单，如果发生了特判的情况，则不打印即可。</p>
+<h2 id="第三次作业-1"><a href="#第三次作业-1" class="headerlink" title="第三次作业"></a>第三次作业</h2><p>在共享对象controller里面放一个map，key为楼层，value为第二层map。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> HashMap&lt;Integer, HashMap&lt;Character, Boolean&gt;&gt; permits;<br></code></pre></td></tr></table></figure>
+<p>第二层map，key为楼座，value为记录这层的电梯可否在此座开门的boolean值。</p>
+<p>每加入一个电梯，就获取它所在楼层的map，如果这个电梯能在楼座X开门，则将map中key为X的值置true。</p>
+<p>乘客寻找需要在哪层换乘时，只需要看controller中每一层的map，看看目标楼座和出发楼座的value是否为true，若是，则该乘客在此层换乘。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>如果在同一层，出现两个横向电梯，分别允许在：</p>
+<p>A B</p>
+<p>A  C</p>
+<p>开门，则A/B/C的value会被置true，需要从B到C的乘客就会在这一层换乘，然而没有电梯能够从B走到C，于是没有电梯接收这一乘客。</p>
+<h3 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h3><p>在共享对象controller里面的map，key仍为楼层，value为第二层map构成的ArrayList。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> HashMap&lt;Integer, ArrayList&lt;HashMap&lt;Character, Boolean&gt;&gt;&gt; permits;<br></code></pre></td></tr></table></figure>
+<p>而第二层map的含义，则变为key为楼座，value 为<b>该电梯</b>可在此楼座开门的标志boolean。</p>
+<p>乘客寻找需要在哪层换乘时，改为看controller中每个楼层的ArrayList的每个map，在map当中同时满足目标楼座和出发楼座的value均为true，才选择在此座换乘。</p>
+<h1 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>电梯设计最大的收获大概就是第一次接触线程安全问题吧。不得不说直接使用<code>synchronized</code>是个很偷懒的方法，直接在两个线程的共享对象中，将所有方法用<code>synchronized</code>上锁，就能够保证每次只有一个线程在访问这一共享对象。</p>
+<p>由于线程安全问题涉及到多个线程访问某一对象的先后问题，故架构设置得越简单，越有利于捋清线程安全的思路。</p>
+<h2 id="层次化设计"><a href="#层次化设计" class="headerlink" title="层次化设计"></a>层次化设计</h2><p>SRP： 类的职责应当单一。</p>
+<p>OCP：尽量少地修改已有的实现，并通过增加方法、增加特判来实现新功能。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>还有一个最大的感受就是，要相信计算机的性能，具体体现在：该for循环就for循环，该遍历就遍历，哪怕经常要遍历ArrayList想着挺别扭。一开始的时候，总想着用HashMap做到O(1)的搜索，但是一顿尝试之后，发觉现代计算机的算力真的很强，遍历ArrayList慢不到哪去。哪怕有一堆线程在等某一线程对着共享对象一通遍历，但这也用不了多久，放心交给电脑，它算的很快。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OO/">OO</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/05/ds-5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ds-5</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/21/ds-4/">
+                        <span class="hidden-mobile">4. 第四次上机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"RF0MS5cmAh0A3sAcwcJ7bb8J-gzGzoHsz","appKey":"O22d8klgjbAosUOSVu08pplw","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://rf0ms5cm.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          Fluid.plugins.initFancyBox('#valine .vcontent img:not(.vemoji)');
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
