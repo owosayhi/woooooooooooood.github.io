@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2022/05/05/ds-5/balanceTree.png">
 <meta property="og:image" content="http://example.com/2022/05/05/ds-5/expTree.png">
 <meta property="article:published_time" content="2022-05-05T11:30:39.000Z">
-<meta property="article:modified_time" content="2022-05-12T12:27:26.199Z">
+<meta property="article:modified_time" content="2022-05-26T12:21:18.754Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.4k 字
+      9k 字
     </span>
   
 
@@ -230,7 +230,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      71 分钟
+      75 分钟
     </span>
   
 
@@ -404,28 +404,26 @@
 <p>至于怎么计算呢，就对当前头结点调用一个函数（不如叫它<code>func</code>吧）。大概如下所示</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">func</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> node *n)</span><br>&#123;<br>    <span class="hljs-keyword">if</span> (n-&gt;flag == <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> n-&gt;num;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n-&gt;flag == <span class="hljs-number">1</span>)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (n-&gt;sign == <span class="hljs-string">&#x27;+&#x27;</span>)<br>            <span class="hljs-keyword">return</span> func(n-&gt;lchild) + func(n-&gt;rchild);<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n-&gt;sign == <span class="hljs-string">&#x27;-&#x27;</span>)<br>            <span class="hljs-keyword">return</span> func(n-&gt;lchild) - func(n-&gt;rchild);<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n-&gt;sign == <span class="hljs-string">&#x27;*&#x27;</span>)<br>            <span class="hljs-keyword">return</span> func(n-&gt;lchild) * func(n-&gt;rchild);<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n-&gt;sign == <span class="hljs-string">&#x27;/&#x27;</span>)<br>            <span class="hljs-keyword">return</span> func(n-&gt;lchild) / func(n-&gt;rchild);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="服务优化（施工中）"><a href="#服务优化（施工中）" class="headerlink" title="服务优化（施工中）"></a>服务优化（施工中）</h2><p>前排提醒：这道题设计广度优先搜索，建议学了下一章再回来写）</p>
-<!-- 这道题是数据结构压轴题类型的题目了，思维量比较大。
-
-按照题意，我们似乎需要：
-1. 把老机场构建出来
-2. 把老机场每个登机口的位置对应的序号“登记”一下
-3. 拆下老登机口
-4. 排序
-5. 把老机场安装回去
-6. 按照指定的顺序输出“新登记口->老登机口”
-
-但是仔细想一想，其实把老登机口装上去是没有必要的 -->
-
-
-<!-- 
-我们把它拆解成几个任务：
-1. 构建机场
-2. 得知每个流量排位，其对应的老登机口的序号（方便输出）
-3. 为所有登机口排序
-4. 按照
-
-读完题目的这段文字：
+<h2 id="服务优化（施工中）"><a href="#服务优化（施工中）" class="headerlink" title="服务优化（施工中）"></a>服务优化（施工中）</h2><p>前排提醒：这道题涉及广度优先搜索，建议学了下一章再回来写）</p>
+<p>这道题是数据结构压轴题类型的题目了，思维量比较大。</p>
+<p>按照题意，我们似乎需要：</p>
+<ol>
+<li>把老机场构建出来</li>
+<li>把老机场每个登机口的位置对应的序号“登记”一下</li>
+<li>拆下老登机口</li>
+<li>排序</li>
+<li>把老机场安装回去</li>
+<li>按照指定的顺序输出“新登记口-&gt;老登机口”</li>
+</ol>
+<p>但是仔细想一想，其实把老登机口装上去是没有必要的</p>
+<p>我们把它拆解成几个任务：</p>
+<ol>
+<li>构建机场</li>
+<li>得知每个流量排位，其对应的老登机口的序号，也就是说，知道第1、2、3……近的登机口分别是谁（方便输出）</li>
+<li>为所有登机口排序，知道第1、2、3……大流量的登机口是谁</li>
+<li>把2、3的信息一一对应输出即可。</li>
+</ol>
+<p>读完题目的这段文字：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">将登机口按照从上到下（安检口在最上方）、从左到右的顺序，依次对应上面排序后将要调整的登机口。<br></code></pre></td></tr></table></figure>
 
 <p>我们不难发现，这个排序规则用人话说就是：安检处到达目标分叉结点的步数越小，排位越靠前；若步数相同，则按照“左、中、右”的顺序排。</p>
@@ -435,8 +433,16 @@
 <li>登机口节点<br>树结构体很显然：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">tree</span>&#123;</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
 按照题意再细想我们会发现，其实在一开始构建排序前的机场是没有</li>
 </ol>
-<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p>简单来说 –&gt;</p>
--->
+<h3 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h3><p>简单来说，就是利用队列，从近处慢慢往远处遍历。</p>
+<p>具体操作如下：</p>
+<ol>
+<li>把头结点放到队列里</li>
+<li>从队首取结点</li>
+<li>把和这一结点相连的结点们放入队尾</li>
+<li>如果队列里面还有元素，则回到第二步</li>
+</ol>
+<p>我们将</p>
+
             </div>
             <hr>
             <div>
@@ -469,6 +475,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/05/26/ds-6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ds-6</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
